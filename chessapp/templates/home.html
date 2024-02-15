@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<section class="hero d-flex align-items-center justify-content-center min-vh-100">
+  <div class="container text-center text-white p-4 rounded-5" style="background-color: rgba(0, 0, 0, 0.6);">
+    <h1 class="display-4 fw-bold mb-4">Unleash Your Inner Chess Master</h1>
+    <p class="lead">Elevate your chess game with powerful tools, engaging challenges, and a vibrant community.</p>
+    <a href="{% url 'games_list' %}" class="btn btn-primary btn-lg rounded-pill" style="opacity: 0.8;">Play Now</a>
+  </div>
+</section>
+
+<section class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">What Chess App Offers</h2>
+    <div class="row">
+      <!-- Card 1 -->
+      <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+          <img src="{% static 'img/chess1.jpeg' %}" class="card-img-top" alt="Chess Image">
+          <div class="card-body">
+            <h5 class="card-title">Intuitive Interface</h5>
+            <p class="card-text">Enjoy a user-friendly interface that makes chess more accessible and enjoyable.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Card 2 -->
+      <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+          <img src="{% static 'img/chess2.jpeg' %}" class="card-img-top" alt="Chess Image">
+          <div class="card-body">
+            <h5 class="card-title">Personalized Training</h5>
+            <p class="card-text">Improve your skills with personalized training plans designed just for you.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+          <img src="{% static 'img/chess3.jpeg' %}" class="card-img-top" alt="Chess Image">
+          <div class="card-body">
+            <h5 class="card-title">Vibrant Community</h5>
+            <p class="card-text">Connect with chess enthusiasts from around the world in our vibrant community.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-gray-200 py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Meet Your New Training Partners</h2>
+
+    <!-- Carousel for Small Screens -->
+    <div id="partnersCarousel" class="carousel slide d-md-none" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <!-- Partner 1 -->
+        <div class="carousel-item active">
+          <div class="card h-100 shadow-sm">
+            <img src="{% static 'img/human1.jpeg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Grandmaster Alexander Ivanov</h5>
+              <p class="card-text">World Chess Champion 2023.</p>
+              <a href="#" class="btn btn-primary">Learn from the Master</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Partner 2 -->
+        <div class="carousel-item">
+          <div class="card h-100 shadow-sm">
+            <img src="{% static 'img/human3.jpeg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">International Master Sofia Petrova</h5>
+              <p class="card-text">Renowned opening expert.</p>
+              <a href="#" class="btn btn-primary">Sharpen Your Strategy</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Partner 3 -->
+        <div class="carousel-item">
+          <div class="card h-100 shadow-sm">
+            <img src="{% static 'img/human2.jpeg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Candidate Master David Lee</h5>
+              <p class="card-text">Master of tactical puzzles.</p>
+              <a href="#" class="btn btn-primary">Level Up Your Tactics</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#partnersCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#partnersCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <!-- Card Grid for Larger Screens -->
+    <div class="row row-cols-1 row-cols-md-3 g-4 d-none d-md-flex">
+      <!-- Partner 1 -->
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <img src="{% static 'img/human1.jpeg' %}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Grandmaster Alexander Ivanov</h5>
+            <p class="card-text">World Chess Champion 2023.</p>
+            <a href="#" class="btn btn-primary">Learn from the Master</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Partner 2 -->
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <img src="{% static 'img/human3.jpeg' %}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">International Master Sofia Petrova</h5>
+            <p class="card-text">Renowned opening expert.</p>
+            <a href="#" class="btn btn-primary">Sharpen Your Strategy</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Partner 3 -->
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <img src="{% static 'img/human2.jpeg' %}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Candidate Master David Lee</h5>
+            <p class="card-text">Master of tactical puzzles.</p>
+            <a href="#" class="btn btn-primary">Level Up Your Tactics</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Key Features</h2>
+
+    <!-- Carousel for Small Screens -->
+    <div id="featuresCarousel" class="carousel slide d-md-none" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <!-- Feature 1 -->
+        <div class="carousel-item active">
+          <div class="card shadow-sm">
+            <img src="{% static 'img/p1.jpg' %}" class="card-img-top" alt="Feature 1 Image">
+            <div class="card-body">
+              <h5 class="card-title">Feature 1</h5>
+              <p class="card-text">Unlock advanced strategies with our powerful analysis tools and tutorials.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="carousel-item">
+          <div class="card shadow-sm">
+            <img src="{% static 'img/p2.jpg' %}" class="card-img-top" alt="Feature 2 Image">
+            <div class="card-body">
+              <h5 class="card-title">Feature 2</h5>
+              <p class="card-text">Personalize your training regimen based on your skill level and preferences.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="carousel-item">
+          <div class="card shadow-sm">
+            <img src="{% static 'img/p3.jpg' %}" class="card-img-top" alt="Feature 3 Image">
+            <div class="card-body">
+              <h5 class="card-title">Feature 3</h5>
+              <p class="card-text">Connect with other chess enthusiasts in a vibrant and supportive community.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#featuresCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#featuresCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <!-- Card Grid for Larger Screens -->
+    <div class="row d-none d-md-flex">
+      <!-- Feature 1 -->
+      <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+          <img src="{% static 'img/p1.jpg' %}" class="card-img-top" alt="Feature 1 Image">
+          <div class="card-body">
+            <h5 class="card-title">Feature 1</h5>
+            <p class="card-text">Unlock advanced strategies with our powerful analysis tools and tutorials.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+          <img src="{% static 'img/p2.jpg' %}" class="card-img-top" alt="Feature 2 Image">
+          <div class="card-body">
+            <h5 class="card-title">Feature 2</h5>
+            <p class="card-text">Personalize your training regimen based on your skill level and preferences.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+          <img src="{% static 'img/p3.jpg' %}" class="card-img-top" alt="Feature 3 Image">
+          <div class="card-body">
+            <h5 class="card-title">Feature 3</h5>
+            <p class="card-text">Connect with other chess enthusiasts in a vibrant and supportive community.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer class="py-5 bg-dark text-white">
+  <div class="container text-center">
+    <p>&copy; 2024 Chess App. All rights reserved.</p>
+  </div>
+</footer>
+
+{% endblock %}

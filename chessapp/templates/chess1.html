@@ -1,0 +1,386 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% block css %}
+  <style>
+    .chess-board {
+      border-spacing: 0;
+      border-collapse: collapse;
+      user-select: none;
+    }
+    .chess-board th {
+      padding: 0.5em;
+    }
+    .chess-board th + th {
+      border-bottom: 1px solid var(--background);
+    }
+    .chess-board th:first-child,
+    .chess-board td:last-child {
+      border-right: 1px solid var(--background);
+    }
+    .chess-board tr:last-child td {
+      border-bottom: 1px solid var(--background);
+    }
+    .chess-board th:empty {
+      border: none;
+    }
+    .chess-board td {
+      width: 2.2em;
+      height: 2.2em;
+      text-align: center;
+      font-size: 32px;
+      line-height: 0;
+    }
+    .chess-board .light {
+      background: var(--primary);
+    }
+    .chess-board .dark {
+      background: var(--secondary);
+    }
+    .draggable:hover {
+      cursor: pointer;
+    }
+    .draggable.dark:hover {
+      cursor: pointer;
+    }
+    .draggable.light:hover {
+      cursor: pointer;
+    }
+    span img {
+      height: 2em;
+      width: 2em;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <section class="container mt-4 justify-content-center">
+    <table class="chess-board">
+      <tbody>
+        <tr>
+          <td id="a8" class="light">
+            <span id="r" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/wwR.png' %}" alt="" /></span>
+          </td>
+          <td id="b8" class="dark">
+            <span id="n" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/wwN.png' %}" alt="" /></span>
+          </td>
+          <td id="c8" class="light">
+            <span id="b" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/wwB.png' %}" alt="" /></span>
+          </td>
+          <td id="d8" class="dark">
+            <span id="q" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/wwQ.png' %}" alt="" /></span>
+          </td>
+          <td id="e8" class="light">
+            <span id="k" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/wwK.png' %}" alt="" /></span>
+          </td>
+          <td id="f8" class="dark">
+            <span id="b" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/wwB.png' %}" alt="" /></span>
+          </td>
+          <td id="g8" class="light">
+            <span id="n" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/wwN.png' %}" alt="" /></span>
+          </td>
+          <td id="h8" class="dark">
+            <span id="r" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/wwR.png' %}" alt="" /></span>
+          </td>
+        </tr>
+        <tr>
+          <td id="a7" class="dark">
+            <span id="p" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/wwP.png' %}" alt="" /></span>
+          </td>
+          <td id="b7" class="light">
+            <span id="p" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/wwP.png' %}" alt="" /></span>
+          </td>
+          <td id="c7" class="dark">
+            <span id="p" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/wwP.png' %}" alt="" /></span>
+          </td>
+          <td id="d7" class="light">
+            <span id="p" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/wwP.png' %}" alt="" /></span>
+          </td>
+          <td id="e7" class="dark">
+            <span id="p" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/wwP.png' %}" alt="" /></span>
+          </td>
+          <td id="f7" class="light">
+            <span id="p" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/wwP.png' %}" alt="" /></span>
+          </td>
+          <td id="g7" class="dark">
+            <span id="p" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/wwP.png' %}" alt="" /></span>
+          </td>
+          <td id="h7" class="light">
+            <span id="p" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/wwP.png' %}" alt="" /></span>
+          </td>
+        </tr>
+        <tr>
+          <td id="a6" class="light"></td>
+          <td id="b6" class="dark"></td>
+          <td id="c6" class="light"></td>
+          <td id="d6" class="dark"></td>
+          <td id="e6" class="light"></td>
+          <td id="f6" class="dark"></td>
+          <td id="g6" class="light"></td>
+          <td id="h6" class="dark"></td>
+        </tr>
+        <tr>
+          <td id="a5" class="dark"></td>
+          <td id="b5" class="light"></td>
+          <td id="c5" class="dark"></td>
+          <td id="d5" class="light"></td>
+          <td id="e5" class="dark"></td>
+          <td id="f5" class="light"></td>
+          <td id="g5" class="dark"></td>
+          <td id="h5" class="light"></td>
+        </tr>
+        <tr>
+          <td id="a4" class="light"></td>
+          <td id="b4" class="dark"></td>
+          <td id="c4" class="light"></td>
+          <td id="d4" class="dark"></td>
+          <td id="e4" class="light"></td>
+          <td id="f4" class="dark"></td>
+          <td id="g4" class="light"></td>
+          <td id="f4" class="dark"></td>
+        </tr>
+        <tr>
+          <td id="a3" class="dark"></td>
+          <td id="b3" class="light"></td>
+          <td id="c3" class="dark"></td>
+          <td id="d3" class="light"></td>
+          <td id="e3" class="dark"></td>
+          <td id="f3" class="light"></td>
+          <td id="g3" class="dark"></td>
+          <td id="h3" class="light"></td>
+        </tr>
+        <tr>
+          <td id="a2" class="light">
+            <span id="P" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/bbP.png' %}" alt="" /></span>
+          </td>
+          <td id="b2" class="dark">
+            <span id="P" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/bbP.png' %}" alt="" /></span>
+          </td>
+          <td id="c2" class="light">
+            <span id="P" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/bbP.png' %}" alt="" /></span>
+          </td>
+          <td id="d2" class="dark">
+            <span id="P" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/bbP.png' %}" alt="" /></span>
+          </td>
+          <td id="e2" class="light">
+            <span id="P" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/bbP.png' %}" alt="" /></span>
+          </td>
+          <td id="f2" class="dark">
+            <span id="P" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/bbP.png' %}" alt="" /></span>
+          </td>
+          <td id="g2" class="light">
+            <span id="P" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/bbP.png' %}" alt="" /></span>
+          </td>
+          <td id="h2" class="dark">
+            <span id="P" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/bbP.png' %}" alt="" /></span>
+          </td>
+        </tr>
+        <tr>
+          <td id="a1" class="dark">
+            <span id="R" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/bbR.png' %}" alt="" /></span>
+          </td>
+          <td id="b1" class="light">
+            <span id="N" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/bbN.png' %}" alt="" /></span>
+          </td>
+          <td id="c1" class="dark">
+            <span id="B" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/bbB.png' %}" alt="" /></span>
+          </td>
+          <td id="d1" class="light">
+            <span id="Q" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/bbQ.png' %}" alt="" /></span>
+          </td>
+          <td id="e1" class="dark">
+            <span id="K" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/bbK.png' %}" alt="" /></span>
+          </td>
+          <td id="f1" class="light">
+            <span id="B" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/bbB.png' %}" alt="" /></span>
+          </td>
+          <td id="g1" class="dark">
+            <span id="N" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/bbN.png' %}" alt="" /></span>
+          </td>
+          <td id="h1" class="light">
+            <span id="R" class="draggable"><img src="{% static 'img/chesspieces/wikipedia/bbR.png' %}" alt="" /></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <br />
+  <br />
+  <button id="flipBoardBtn">Flip Board</button>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+  <script>
+    var greyColor = '#a9a9a9'
+    var blackSquareGrey = '#696969'
+    const game_id = '{{game.id}}'
+    const ws = new WebSocket(`ws://${window.location.host}/ws/chess/${game_id}`)
+    
+    function removeGreySquares() {
+      // Remove background from all squares with the 'grey' class
+      $('.chess-board td.grey').css('background', '')
+    }
+    
+    function greyOutSquares(possibleMoves) {
+      // Loop through the possible moves and grey out each square
+      possibleMoves.forEach(function (square) {
+        var $square = $('#' + square)
+        $square.addClass('grey')
+        $square.css('background', greyColor) // Set your desired grey color
+      })
+    }
+    
+    // Define your isValidMove function (replace this with your actual validation logic)
+    function isValidMove(sourceSquare, targetSquare) {
+      // Add your validation logic here
+      return true
+    }
+    
+    // Define a function to flip the board
+    function flipBoard() {
+      // Get the tbody element
+      const tbody = $('.chess-board tbody')
+    
+      // Reverse the order of its children (rows)
+      tbody.children().each(function () {
+        tbody.prepend(this)
+      })
+    }
+    
+    // Attach the flipBoard function to the button click event
+    $('#flipBoardBtn').on('click', function () {
+      flipBoard()
+    })
+
+    $('.draggable').draggable({
+      revert: 'invalid',
+      helper: 'clone',
+      start: function (event, ui) {
+        sourceId = ui.helper.parent().attr('id')
+      }
+    })
+
+    $('.chess-board td').droppable({
+      accept: '.draggable',
+      drop: function (event, ui) {
+        // Check if the destination square is valid for the piece
+        if (isValidMove(ui.draggable.attr('id'), $(this).attr('id'))) {
+          // Check if there is a piece already present in the target square
+          const targetPiece = $(this).children('.draggable')
+          if (targetPiece.length > 0) {
+            // A piece is present in the target square, remove it
+            targetPiece.remove()
+          }
+    
+          // Update the board state (remove piece from the old square, add to the new)
+          ui.helper.remove()
+          ui.draggable.appendTo($(this))
+
+          // Log the source and target squares to the console
+          logMovedPiecePosition(ui.draggable.attr('id'), sourceId, $(this).attr('id'))
+    
+          // Send the move data to the backend through WebSocket
+          const moveData = {
+            type: 'make_move',
+            move: {
+              source: sourceId,
+              target: $(this).attr('id')
+            }
+          }
+          console.log(moveData)
+          ws.send(JSON.stringify(moveData))
+        }
+      }
+    })
+    $('.draggable').on('mouseover', function () {
+      const pieceId = $(this).attr('id') // Use attr('id') directly
+      const squareId = $(this).parent().attr('id') // Get the parent (td) id
+    
+      const hoverData = {
+        type: 'hover',
+        hover: {
+          piece: squareId
+        }
+      }
+      ws.send(JSON.stringify(hoverData))
+      logPiecePositionOnHover(pieceId, squareId)
+    })
+    
+    // Function to log the source and target squares of the moved piece to the console
+    function logMovedPiecePosition(pieceId, sourceSquare, targetSquare) {
+      const position = {
+        source: sourceSquare, // Directly assign the source square ID
+        target: { [targetSquare]: pieceId }
+      }
+    
+      // Log the source and target squares to the console
+      console.log('Moved Piece Position:', position)
+    }
+    
+    // Function to log the piece position on hover to the console
+    function logPiecePositionOnHover(pieceId, squareId) {
+      const position = {
+        square: squareId,
+        piece: pieceId
+      }
+    
+      // Log the piece position to the console
+      console.log('Piece Position on Hover:', position)
+      // You can also display this information on your webpage if needed
+    }
+    ws.onmessage = function (event) {
+      var data = JSON.parse(event.data)
+    
+      // Handle different types of messages
+      switch (data.type) {
+        case 'game_message':
+          // Handle game messages, e.g., player joined/left
+          console.log(data.message)
+          break
+        case 'game_move':
+          // Handle game move messages, e.g., piece moved
+          console.log('Received move:', data.move_message)
+          console.log(data.on_drop)
+          if (data.on_drop == 'snapback') {
+            console.log("accessing function")
+            revertPosition()
+          }
+          break
+        case 'possible_moves':
+          console.log(data.possible_moves)
+          removeGreySquares() // Remove previous grey squares
+          greyOutSquares(data.possible_moves) // Grey out new squares
+          break
+        default:
+          // Handle other types of messages if needed
+          break
+      }
+    }
+    function revertPosition() {
+      console.log("Function accessed");
+    
+      // Get the currently dragged piece (assuming you have a way to track it)
+      const draggedPiece = $('.draggable.ui-draggable-dragging');
+    
+      // Check if a piece is being dragged
+      if (draggedPiece.length > 0) {
+        const sourceId = draggedPiece.data('sourceId'); // Assuming you store sourceId in a data attribute
+    
+        // If sourceId is available, move the piece back to its original position
+        if (sourceId) {
+          const sourceSquare = $('#' + sourceId);
+          draggedPiece.appendTo(sourceSquare);
+    
+          // Optionally, reset draggable state (if needed)
+          draggedPiece.draggable('option', 'revert', true);
+    
+          console.log("Piece reverted to", sourceId);
+        } else {
+          console.log("Source ID not found for dragged piece");
+        }
+      } else {
+        console.log("No piece is currently being dragged");
+      }
+    }
+    
+  </script>
+{% endblock %}

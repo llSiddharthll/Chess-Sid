@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chess</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js" integrity="sha512-NgXVRE+Mxxf647SqmbB9wPS5SEpWiLFp5G7ItUNFi+GVUyQeP+7w4vnKtc2O/Dm74TpTFKXNjakd40pfSKNulg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <style>
+      .theme-transition {
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }</style>
+    
+    {% block css %}
+      
+    {% endblock %}
+      
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow-sm px-5 bg-theme" style="backdrop-filter: blur(10px);">
+      <a class="navbar-brand text-prime fw-bold" href="#">Chess App</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto text-theme fw-bold" style="backdrop-filter: blur(5px);">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'games_list' %}">Play</a>
+          </li>
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'profile' request.user.id %}">{{ request.user.username }} Profile</a>
+            </li>
+          {% endif %}
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+              <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="nav-link" style="border: none; background: none;">Logout</button>
+              </form>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link">{% include 'theme_toggle.html' %}</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    {% block content %}
+
+    {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="{% static 'script.js' %}"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          // Get the current page URL
+          var currentUrl = window.location.href;
+  
+          // Select all navigation links
+          var navLinks = document.querySelectorAll('.nav-link');
+  
+          // Remove 'active' and 'active-link' classes from all links
+          navLinks.forEach(function(link) {
+              link.classList.remove('active');
+          });
+  
+          // Loop through each link and check if its href matches the current URL
+          navLinks.forEach(function(link) {
+              if (link.href === currentUrl) {
+                  // If the href matches, add the 'active' and 'active-link' classes
+                  link.classList.add('active');
+              }
+          });
+      });
+  </script>
+  
+  </body>
+</html>

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mx-auto p-4">
+  <div class="row mb-3">
+    <div class="col-8">
+      <h2 class="text-4xl font-bold">Your Games</h2>
+    </div>
+    <div class="col-4 text-end mt-3">
+      <a href="{% url 'create_game' %}" class="btn btn-primary">Create a New Game</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="mb-4 col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="text-2xl font-bold mb-3">Games <span class="badge bg-info">Normal</span></h3>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">Game Name</th>
+                  <th scope="col">Creator</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="text-theme">
+                {% for game in games %}
+                  {% if game.game_is == 'normal' %}
+                    <tr>
+                      <td>{{ game.game_name }}</td>
+                      <td>{{ game.creator.username }}</td>
+                      <td>
+                        <a href="{% url 'chess_game' game.id %}" class="btn btn-success">Play</a>
+                      </td>
+                    </tr>
+                  {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-4 col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="text-2xl font-bold mb-3">Games <span class="badge bg-warning">Ranked</span></h3>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">Game Name</th>
+                  <th scope="col">Creator</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="text-theme">
+                {% for game in games %}
+                  {% if game.game_is == 'ranked' %}
+                    <tr>
+                      <td>{{ game.game_name }}</td>
+                      <td>{{ game.creator.username }}</td>
+                      <td>
+                        <a href="{% url 'chess_game' game.id %}" class="btn btn-success">Play</a>
+                      </td>
+                    </tr>
+                  {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

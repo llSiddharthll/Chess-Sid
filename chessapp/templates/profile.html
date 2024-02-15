@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="card card-shadow border-light bg-theme text-theme">
+          <div class="card-header">
+            <h3 class="card-title">{{ user_profile.user.username }}</h3>
+            <p class="card-subtitle">{{ user_profile.full_name }}</p>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-6">
+                <img src="{% static 'img/pfp.jpg' %}" class="img-fluid rounded-5" alt="Player image">
+              </div>
+              <div class="col-6">
+                <p class="card-text">Ranking: #5</p>
+                <p class="card-text">Level: 25</p>
+                <p class="card-text">XP: 3450 / 5000</p>
+                <div class="progress">
+                  <div class="progress-bar bg-success" role="progressbar" style="width: 69%" aria-valuenow="69" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3" style="text-align: left;">
+              <div class="col-6">
+                <p class="card-text">Matches Played: {{ user_profile.matches_played }}</p>
+                <p class="card-text">Matches Won: {{ user_profile.matches_won }}</p>
+                <p class="card-text">Matches Lost: {{ user_profile.matches_lost }}</p>
+                <p class="card-text">Matches Drawn: {{ user_profile.matches_draw }}</p>
+              </div>
+              <div class="col-6">
+                <p class="card-text">Avg T/M: {{ user_profile.average_time_per_move }} seconds</p>
+                <p class="card-text">Longest Game: {{ user_profile.longest_game_duration }} minutes</p>
+                <p class="card-text">Shortest Game: {{ user_profile.shortest_game_duration }} minutes</p>
+                <p class="card-text">Total Time: {{ user_profile.total_time_spent }} hours</p>
+            </div>            
+            </div>
+            </div>
+          </div>
+          <div class="card-footer d-flex justify-content-between">
+            <a href="#" class="btn btn-outline-light">Update Profile</a>
+            <a href="#" class="btn btn-outline-light">Send Message</a>
+            <a href="#" class="btn btn-outline-light">Add Friend</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+{% endblock %}

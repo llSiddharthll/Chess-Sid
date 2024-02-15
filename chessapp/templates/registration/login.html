@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow-lg">
+          <div class="card-header bg-dark text-white">
+            <h3 class="text-center">Chess Club Login</h3>
+          </div>
+          <div class="card-body">
+            <form method="post">
+              {% csrf_token %}
+              {{ form.non_field_errors }}
+              <div class="mb-3">
+                <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
+                <input type="text" class="form-control" id="{{ form.username.auto_id }}" placeholder="Enter your username" name="{{ form.username.name }}" />
+              </div>
+              <div class="mb-3">
+                <label for="{{ form.password.id_for_label }}" class="form-label">Password</label>
+                <input type="password" class="form-control" id="{{ form.password.auto_id }}" placeholder="Enter your password" name="{{ form.password.name }}" />
+              </div>
+              {% for field in form %}
+                <ul>{{ field.errors }}</ul>
+              {% endfor %}
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Login</button>
+              </div>
+            </form>
+            <div class="text-center mt-3">
+              <a href="{% url 'password_reset' %}" class="text-theme">Forgot Password?</a>
+            </div>
+          </div>
+          <div class="card-footer text-center">
+            <p class="mb-0">
+              Don't have an account? <a href="{% url 'signup' %}" class="text-theme">Sign up</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
