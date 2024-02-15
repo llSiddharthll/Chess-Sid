@@ -17,3 +17,5 @@ django-cloudinary-storage
 channels[daphne]
 channels-redis
 psycopg2-binary
+fastapi
+uvicorn

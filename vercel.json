@@ -1,24 +1,22 @@
-
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "Chess-Sid/asgi.py",
-        "use": "@vercel/python",
-        "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
-      },
-      {
-        "src": "build_files.sh",
-        "use": "@vercel/static-build",
-        "config": {
-          "distDir": "static"
-        }
+  "version": 2,
+  "builds": [
+    {
+      "src": "Chess-Sid/main.py",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "build_files.sh",
+      "use": "@vercel/static-build",
+      "config": {
+       "distDir": "static"
       }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "Chess-Sid/asgi.py"
-      }
-    ]
-  }
+     }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api/$1"
+    }
+  ]
+}
