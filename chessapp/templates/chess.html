@@ -41,7 +41,7 @@
               <label class="fw-bold col">Turn:</label>
               <div id="creatorName" class="col">{{ game.creator }}</div>
               <div id="opponentName" class="col">{{ game.opponent }}</div>
-          </div>          
+          </div>
             <div class="mb-3">
               <label class="fw-bold">Status:</label>
               <div id="status" class="badge bg-primary p-2"></div>
@@ -105,6 +105,13 @@
         </div>
       </div>
     </div>
+  </section>
+  <section>
+      <form id="resultform" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="result" value="{{ game.result }}">
+        <input type="submit" value="Submit Result">
+    </form>
   </section>
 
   <!-- Include Chessboard.js Script -->
@@ -269,9 +276,11 @@
       if (game.in_checkmate()) {
         status = 'Game over, ' + moveColor + ' is in checkmate.';
         if (moveColor === 'White') {
-        chessSocket.send(JSON.stringify({type: 'result', msg: 'black'}))}
-        else{
+        chessSocket.send(JSON.stringify({type: 'result', msg: 'black'}))
+        document.querySelector('#resultform').submit();
+      } else{
           chessSocket.send(JSON.stringify({type: 'result', msg: 'white'}))
+          document.querySelector('#resultform').submit();
         }
         $('#checkmateModal').modal('show');
 
@@ -282,6 +291,7 @@
         status = 'Game over, drawn position';
         chessSocket.send(JSON.stringify({type: 'result', msg: 'draw'}))
         $('#gameDrawModal').modal('show');
+        document.querySelector('#resultform').submit();
       }
 
       // game still on

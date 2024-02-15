@@ -47,7 +47,7 @@ class ChessConsumer(AsyncWebsocketConsumer):
             self.game_group_name,
             {
                 'type': 'game_message',
-                'message': f'A Player has left.'
+                'message': f'Player {self.user_id} has left.'
             }
         )
 
@@ -67,7 +67,6 @@ class ChessConsumer(AsyncWebsocketConsumer):
         elif move_type == 'on_Drop':
             source, target = data['sum'][:2], data['sum'][2:]
             self.move_message = f'{source}-{target}'
-            print(self.move_message)
             
             # Send move to game group
             await self.channel_layer.group_send(
@@ -82,21 +81,10 @@ class ChessConsumer(AsyncWebsocketConsumer):
             await self.handle_fen(data)
         
         elif move_type == 'result':
-            instance = await database_sync_to_async(Game.objects.get)(id=self.game_id)
             result = data.get('msg')
-
-            if result == 'black' and instance.creator.userprofile.selected_side == result:
-                instance.creator.userprofile.matches_won = F('matches_won') + 1
-            elif result == 'white' and instance.creator.userprofile.selected_side == result:
-                instance.creator.userprofile.matches_won = F('matches_won') + 1
-
-            instance.creator.userprofile.matches_played = F('matches_played') + 1
-
-            if result == 'draw':
-                instance.creator.userprofile.matches_draw = F('matches_draw') + 1
-
-            await database_sync_to_async(instance.creator.userprofile.save)()
-            await database_sync_to_async(instance.opponent.userprofile.save)()
+            instance = await database_sync_to_async(Game.objects.get)(id=self.game_id)
+            instance.result = result
+            await database_sync_to_async(instance.save)()
             
 
     async def game_move(self, event):
@@ -107,7 +95,7 @@ class ChessConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({
             'type': 'game_move',
             'move_message': move_message,
-            'movement': movement
+            'movement': movement,
         }))
 
     async def game_message(self, event):
@@ -116,7 +104,7 @@ class ChessConsumer(AsyncWebsocketConsumer):
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
             'type': 'game_message',
-            'message': message
+            'message': message,
         }))
         
     async def handle_fen(self, data):
@@ -129,4 +117,3 @@ class ChessConsumer(AsyncWebsocketConsumer):
             logger.error(f"Game with id {self.game_id} does not exist.")
         except Exception as e:
             logger.error(f"An error occurred: {str(e)}")
-        

@@ -16,7 +16,7 @@ def chess_game(request, id):
     # Retrieve the game object
     game = Game.objects.get(id=id)
     user_profile, created = UserProfile.objects.get_or_create(user=current_user)
-        
+      
     # Check if the current user is the creator or opponent
     if current_user == game.creator:
         # The current user is the creator
@@ -42,6 +42,26 @@ def chess_game(request, id):
         user_profile.other_side = game.other_side
     
     user_profile.save()
+    if request.method == 'POST':
+        result = request.POST.get('result')
+        if result == 'black' and game.creator.userprofile.selected_side == result:
+            print("creator access")
+            game.creator.userprofile.matches_won += 1
+            game.creator.userprofile.matches_lost += 1
+        else:
+            print("opponent access")
+            game.opponent.userprofile.matches_won += 1
+            game.opponent.userprofile.matches_lost += 1
+
+        game.creator.userprofile.matches_played += 1
+        game.opponent.userprofile.matches_played += 1
+
+        if result == 'draw':
+            game.creator.userprofile.matches_draw  += 1
+            game.opponent.userprofile.matches_draw  += 1
+
+        game.creator.userprofile.save()
+        game.opponent.userprofile.save()
     
     context = {
         'user_profile': user_profile,
@@ -73,7 +93,7 @@ def games_list(request):
     return render(request, 'game_list.html', {"games": games, 'user': request.user})
 
 def profile(request, id):
-    # Try to get the UserProfile instance, or create it if it doesn't exist
+    # Try to get the UserProfile game, or create it if it doesn't exist
     user_profile, created = UserProfile.objects.get_or_create(id=id, user=request.user)
 
     # If the UserProfile is created, you might want to do some additional setup here
@@ -86,5 +106,5 @@ def profile(request, id):
 
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy("home")
+    success_url = reverse_lazy("login")
     template_name = "registration/signup.html"

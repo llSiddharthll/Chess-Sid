@@ -1,0 +1,24 @@
+elif move_type == 'result':
+            instance = Game.objects.get(id=self.game_id)
+            result = data.get('msg')
+            print("Result is : "+result)
+
+            if result == 'black' and instance.creator.userprofile.selected_side == result:
+                print("creator access")
+                instance.creator.userprofile.matches_won += 1
+                instance.creator.userprofile.matches_lost += 1
+            else:
+                print("opponent access")
+                print("Matches Won: "+instance.opponent.userprofile.matches_won)
+                instance.opponent.userprofile.matches_won += 1
+                instance.opponent.userprofile.matches_lost += 1
+
+            instance.creator.userprofile.matches_played += 1
+            instance.opponent.userprofile.matches_played += 1
+
+            if result == 'draw':
+                instance.creator.userprofile.matches_draw  += 1
+                instance.opponent.userprofile.matches_draw  += 1
+
+            instance.creator.userprofile.save()
+            instance.opponent.userprofile.save()

@@ -12,6 +12,7 @@ class Game(models.Model):
     fen = models.CharField(max_length=225, default='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' )
     game_is = models.CharField(max_length=50, default="normal")
     turn = models.CharField(max_length=1, default='w')
+    result = models.CharField(max_length=20, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -28,3 +29,6 @@ class UserProfile(models.Model):
     matches_won = models.IntegerField(default=0)
     matches_lost = models.IntegerField(default=0)
     matches_draw = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return f"{self.user.username}'s Profile"
