@@ -4,6 +4,7 @@ from .forms import *
 from .models import *
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+from django.contrib.auth import login
 
 def index(request):
     return render(request, "home.html", {'user': request.user})
@@ -72,7 +73,11 @@ def games_list(request):
     return render(request, 'game_list.html', {"games": games, 'user': request.user})
 
 def profile(request, id):
-    user_profile = UserProfile.objects.get(id=id)
+    # Try to get the UserProfile instance, or create it if it doesn't exist
+    user_profile, created = UserProfile.objects.get_or_create(id=id, user=request.user)
+
+    # If the UserProfile is created, you might want to do some additional setup here
+
     context = {
         'user_profile': user_profile,
     }
@@ -81,5 +86,5 @@ def profile(request, id):
 
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy("home")
     template_name = "registration/signup.html"
