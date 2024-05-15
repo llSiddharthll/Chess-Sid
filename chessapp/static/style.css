@@ -6,6 +6,7 @@
   --primary: #3dc99b;
   --secondary: #97e5cb;
   --accent: #67deb6;
+  --active: #12704a;
 }
 :root[data-theme="dark"] {
   --text: #e1f5ee;
@@ -13,6 +14,7 @@
   --primary: #37c394;
   --secondary: #19664d;
   --accent: #21976f;
+  --active: #36df9b;
 }
 
 * {
@@ -76,7 +78,7 @@ a{
 }
 .navbar-nav .nav-link.active,
 .navbar-nav .show > .nav-link {
-  color: var(--primary);
+  color: var(--active);
   position: relative;
 }
 .active::after {
@@ -155,7 +157,7 @@ a{
   color: var(--text);
 }
 .text-prime {
-  color: var(--primary);
+  color: var(--active);
 }
 .hero {
   background-image: url("img/Chess-img.jpg");
